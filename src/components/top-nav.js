@@ -1,8 +1,10 @@
 import React from 'react';
 
 import './top-nav.css';
+import { resetGame } from '../actions';
+import { connect } from 'react-redux';
 
-export default function TopNav(props) {
+export function TopNav(props) {
   return (
     <nav>
       <ul className="clearfix">
@@ -20,23 +22,14 @@ export default function TopNav(props) {
             href="#feedback"
             className="new"
             aria-label="Start a new game"
-            onClick={() => props.onRestartGame()}
+            onClick={() => props.dispatch(resetGame(Math.round(Math.random() * 100) + 1))}
           >
             + New Game
-          </a>
-        </li>
-        <li>
-          <a
-            href="#get-status"
-            /* the `visuallyhidden` class hides an element 
-            while leaving it available to screen reader users  */
-            className="visuallyhidden focusable status-link"
-            onClick={() => props.onGenerateAuralUpdate()}
-          >
-            Hear state of game
           </a>
         </li>
       </ul>
     </nav>
   );
 }
+
+export default connect()(TopNav);
